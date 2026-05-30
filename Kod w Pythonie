@@ -1,0 +1,144 @@
+import pandas
+
+
+df = pandas.read_csv("bodyPerformance.csv")
+
+print(df)
+print(df.describe())
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(20, 5))
+df.plot(kind="box")
+plt.xticks(rotation=90)
+plt.show()
+
+data = df.to_numpy()
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder() # zmiana z dyskretnych na liczbę
+
+# Podział danych na cechy i osobno decyzję
+y = data[:,-1]# atrybut decyzyjny
+X = data[:,:-1] # pozostałe atrybuty
+print(data)
+
+print(y)
+
+# Zmiana kolumn na liczby
+for i_col in range(len(X[0])):
+    #X[row, col]
+    #print(X[:,i_col])
+    if isinstance(X[0,i_col], str):
+        X[:,i_col] = le.fit_transform(X[:,i_col])
+
+print(X)
+
+"""## Uczenie i trenowanie algorytmu"""
+
+## Trenuj i testuj
+##Poodział na treningowe i testowe
+from sklearn.model_selection import train_test_split
+
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.38)
+
+print(len(X_tr), len(X_te))
+
+"""### Trenowanie i walidacja"""
+
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+
+clf = DecisionTreeClassifier(max_depth=4) # przygotowany klasyfikator
+clf.fit(X_tr,y_tr) # uczenia klasyfikatora
+# tutaj już mamy wyuczony klasyfikator
+# No to walidacja i wybór
+from sklearn.metrics import confusion_matrix, recall_score, precision_score, classification_report
+
+y_pred = clf.predict(X_te) # przewidywanie klasy dla danych testowych
+print("Rzeczywiste warości:",y_te)
+print("Przewidywane wartości:",y_pred)
+
+
+print("Macierz pomyłek:",confusion_matrix(y_te, y_pred) )
+print( "Recall:", recall_score(y_te, y_pred, average="macro"))
+print( recall_score(y_te, y_pred, average=None))
+print("Precyzja:", precision_score(y_te, y_pred, average=None))
+
+print( classification_report(y_te, y_pred) )
+
+"""## Trenowanie i walidacja dla wielu algorytmów"""
+
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+
+klasyfikatory = {
+    "DT0"    : DecisionTreeClassifier(),
+    "DT3"    : DecisionTreeClassifier(max_depth=10),
+    "DT3en"  : DecisionTreeClassifier(max_depth=10, criterion="entropy"),
+    "RF"     : RandomForestClassifier(),
+    "RF_4"   : RandomForestClassifier(max_depth=4),
+    "SVM"    : SVC(),
+    "GB"     : GradientBoostingClassifier(),
+    "KNN"    : KNeighborsClassifier(),
+    "NB"     : GaussianNB()
+}
+
+
+best_clf_name = None
+best_clf_val  = 0.0
+
+for name, model in klasyfikatory.items():
+    print("="*40)
+    print(name)
+    print("="*40)
+
+    model.fit(X_tr, y_tr)
+    y_pred = model.predict(X_te)
+
+    print(classification_report(y_te, y_pred, zero_division=0))
+    print(confusion_matrix(y_te, y_pred))
+
+    # zgodnie z celem, robimy czułość (recall)
+    recall = recall_score(y_te, y_pred, average=None)[1]
+    print("Wartość dla celu: ", recall)
+
+    if recall > best_clf_val:
+        best_clf_val = recall
+        best_clf_name = name
+
+    print("="*40)
+print()
+print("Wybrany klasyfikator:", best_clf_name)
+clf = klasyfikatory[best_clf_name]
+
+"""##Wyuczony klasyfikator"""
+
+print("Liczba w X:", X.shape[1])
+
+new_x1 = [25,1,190,85,9,100,60,1,150,60,215]
+new_x2 = [30,0,170,55,15,95,45,1,80,50,180]
+result = clf.predict([new_x1,new_x2])
+print(result)
+
+"""##Krosowa Walidacja"""
+
+from sklearn.model_selection import cross_val_score
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import make_scorer
+results = pandas.DataFrame()
+
+for i in range(1,26):
+    clf = DecisionTreeClassifier(max_depth=i)
+    result = cross_val_score(clf, X, y, cv=10)
+    #print(result)
+    #print(sum(result)/len(result))
+    results[i] = result
+print(results)
+
+results.plot(kind="box")
+plt.show()
