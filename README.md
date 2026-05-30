@@ -13,3 +13,4 @@ Po znalezieniu najlepszego modelu można wprowadzać nowe dane (np. cechy nowej 
 Klasyfikacja poziomu sprawności fizycznej na podstawie pomiarów
 ma możliwości zastosowanie w sporcie, rehabilitacji, diagnostyce zdrowia i treningach personalnych
 
+Źródło danych: Kaggle
