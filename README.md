@@ -1,5 +1,5 @@
 # Klasyfikacja-wydolno-ci-fizycznej-
-Problem klasyfikacji wydolności osób, których celem jest przewidywanie klasy uwzględniając parametry fizyczne
+Problem klasyfikacji wydolności osób, których celem jest przewidywanie klasy uwzględniając parametry fizyczne tj.
 
 Wiek (age), Płeć (gender) Wzrost (height_cm) Waga (weight_kg) Procent tkanki tłuszczowej (body fat_%) Parametry siłowe i wytrzymałościowe (np. ciśnienie, siła chwytu, liczba podciągnięć, długość skoku w dal itp.) Klasa wydolności (class) – etykieta do przewidywania (A, B, C, D), klasa A najwyższa
 
