@@ -38,7 +38,7 @@ Porównano 9 algorytmów klasyfikacyjnych. Kryterium wyboru: recall (macro).
 | Decision Tree (domyślny) | ~% | ~% | ~% | ~% |
 | Decision Tree (max_depth=10) | ~% | ~% | ~% | ~% |
 | Random Forest | ~% | ~% | ~% | ~% |
-| **SVM ← najlepszy** | **~%** | **~%** | **~%** **~%** |
+| **SVM ← najlepszy** | **~%** | **~%** | **~%** | **~%** |
 | Gradient Boosting | ~% | ~% | ~% | ~% |
 | KNN | ~% | ~% | ~%  ~% |
 | Naive Bayes | ~% | ~% | ~%  ~% |
