@@ -36,12 +36,12 @@ Porównano 9 algorytmów klasyfikacyjnych. Kryterium wyboru: recall (macro).
 | Model | Accuracy | Precision (macro)  | Recall (macro) | F1 (macro) |
 |---|---|---|---|---|
 | Decision Tree (domyślny) | 63 % | 63 % | 63 % | 63 % |
-| Decision Tree (max_depth=10) | ~% | ~% | ~% | ~% |
-| Random Forest | ~% | ~% | ~% | ~% |
+| Decision Tree (max_depth=10) | 67 % | 68 % | 67 % | 67 % |
+| Random Forest | 73 % | 73 % | 73 % | 73 % |
 | **SVM ← najlepszy** | **61 %** | **61 %** | **61 %** | **62 %** |
-| Gradient Boosting | ~% | ~% | ~% | ~% |
-| KNN | ~% | ~% | ~%  ~% |
-| Naive Bayes | ~% | ~% | ~%  ~% |
+| Gradient Boosting | 72 % | 72 % | 72 % | 72 % |
+| KNN | 54 % | 57 % | 54 % | 55 % |
+| Naive Bayes | 53 % | 52 % | 53 % | 52 % |
 
 
 
