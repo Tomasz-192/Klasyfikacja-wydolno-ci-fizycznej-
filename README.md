@@ -34,7 +34,7 @@ D = najniższa) na podstawie cech:
 Porównano 9 algorytmów klasyfikacyjnych. Kryterium wyboru: recall (macro).
 
 | Model | Accuracy | Recall (macro)  | Recall (macro) | F1 (macro) |
-|---|---|---|---|
+|---|---|---|---|---|
 | Decision Tree (domyślny) | ~% | ~% | ~% | ~% |
 | Decision Tree (max_depth=10) | ~% | ~% | ~% | ~% |
 | Random Forest | ~% | ~% | ~% | ~% |
